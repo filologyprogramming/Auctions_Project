@@ -5939,3 +5939,11 @@ auctions/migrations/0024_alter_comment_comment_alter_listing_category_and_more.p
 auctions/migrations/0025_alter_listing_category_alter_listing_condition.py
 auctions/migrations/0026_comment_date_alter_listing_category_and_more.py
 .vscode/launch.json
+commerce/__pycache__/__init__.cpython-311.pyc
+commerce/__pycache__/settings.cpython-311.pyc
+commerce/__pycache__/urls.cpython-311.pyc
+commerce/__pycache__/wsgi.cpython-311.pyc
+media/user_1/6Tpo6G8TE.jpg
+media/user_1/Nimbus_2000.jpg
+media/user_3/bed.jpeg
+media/user_3/img-1419.jpg.webp
