@@ -391,7 +391,8 @@ def add_comment(request, listing_id):
             comment_obj = Comment(
                 comment = comment_text,
                 listing = listing,
-                user = user
+                user = user,
+                date = datetime.now()
             )
             # Save comment object
             comment_obj.save()
