@@ -280,6 +280,14 @@ tr {
     text-align: center;
 }
 
+/* No active bids banner */
+#no_bids {
+    margin-top: 2rem;
+    text-align: center;
+    color: #427aa1;
+    font-weight: bold;
+}
+
 
 /* PLace a bid form */
 #place_a_bid_form {
