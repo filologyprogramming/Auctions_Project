@@ -1,0 +1,92 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+{% if watchlist %}
+    <h2 id="title">Your Watchlist</h2>
+    {% else %}
+    <h2 id="title">Your Watchlist is empty</h2>
+{% endif %}
+
+    {% for listing in watchlist.listing.all %}
+    <!-- Display information about the listing -->
+        <div class="listing" id="listing_{{ listing.id }}">
+            <a href="{% url 'show_listing' listing.id listing.name %}">
+                <img src="{{ listing.image.url }}" alt="{{ listing.description }}">
+                <h4>{{ listing.name }}</h4>
+                <h4>{{ listing.price }}</h4>
+                <p>{{ listing.description }}</p>
+            
+                <h6>Details</h6>
+                <div>
+                    {{ listing.seller }}
+                    {{ listing.date }}
+                    {{ listing.get_category_display }}
+                </div>
+            </a>
+            <!-- Remove from watchlist form -->
+            <form action="{% url 'remove_from_watchlist' listing.id %}" method="post" class="remove_from_watchlist" name="remove_from_watchlist" id="remove_from_watchlist">
+                {% csrf_token %}
+                <input type="hidden" value="{{ listing.id }}" name="listing_id" class="listing_id">
+                <input type="submit" value="Remove from watchlist">
+            </form>
+        </div>
+    {% endfor %}
+    <!-- <script>
+
+        // Get CSRF token
+        function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrftoken = getCookie('csrftoken');
+
+        // Wait for content to be load
+        document.addEventListener("DOMContentLoaded", function() {
+            // Choose all remove_from_watchlist forms
+            let add_to_watchlist = document.querySelectorAll(".remove_from_watchlist");
+            // Block submission on each button
+            for (let i = 0; i < add_to_watchlist.length; i++){
+                add_to_watchlist[i].addEventListener("submit", function(e) {
+                    e.preventDefault();
+
+                    // Find a child with ID of listing_id from the form which was just clicked/submitted
+                    let listing_id = e.target.querySelector(".listing_id").value;
+                    
+                    // Sent listing ID to view
+                    let response = fetch(`/remove_from_watchlist/${listing_id}`, {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRFToken': csrftoken,
+                                'Content-Type': 'application/json'
+                            },
+                            mode: 'same-origin', // Do not send CSRF token to another domain.
+                            body: JSON.stringify ({
+                                'listing_id': listing_id
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                            listing = document.querySelector(`#listing_${listing_id}`);
+                            listing.remove();
+                            location.reload();
+                        })
+                        .catch(error => console.error('Error:', error));
+                    })    
+                }
+            })
+    </script> -->
+
+{% endblock %}

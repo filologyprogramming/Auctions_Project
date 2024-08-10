@@ -1,0 +1,26 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    {% if user_purchases %}
+    <h2>My purchases</h2>
+    <hr>
+    {% for listing in user_purchases %}
+    <a href="{% url 'show_listing' listing.id listing.name %}" class="a">
+        <div class="row listing">
+            <div class="col-6 left_side">
+                <img src="{{ listing.image.url }}" alt="{{ listing.description }}">
+            </div>
+            <div class="col-6 right-side">
+                <h4>{{ listing.name }}</h4>
+                <h4>{{ listing.price }}</h4>
+                <p>{{ listing.get_category_display }}</p>
+                <p>{{ listing.description }}</p>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+    {% else %}
+    <h2> You have not bought anything</h2>
+    <hr>
+    {% endif %}
+{% endblock %}
