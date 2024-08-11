@@ -3,24 +3,28 @@
 {% block body %}
     {% if user_listings %}
     <h2>You bid on following listings</h2>
-    <hr>
     {% for listing in user_listings %}
-    <a href="{% url 'show_listing' listing.id listing.name %}" class="a">
-        <div class="row listing">
-            <div class="col-6 left_side">
-                <img src="{{ listing.image.url }}" alt="{{ listing.description }}">
+    <div class="row justify-content-center listing">
+        <a href="{% url 'show_listing' listing.id listing.name %}" class="col-12">
+
+            <div class="col-6 left_side image">
+                <img src="{{ listing.image.url }}" alt="{{ listing.description }}" class="justify-content-center">
             </div>
-            <div class="col-6 right-side">
-                <h4>{{ listing.name }}</h4>
-                <h4>{{ listing.price }}</h4>
-                <p>{{ listing.get_category_display }}</p>
-                <p>{{ listing.description }}</p>
+            <div class="col-6 right_side">
+                <div class="elo">
+                    <h4 class="listing-name">{{ listing.name }}</h4>
+                    <h4 class="listing-price">PLN {{ listing.price }}</h4>
+                </div>
+                <div class="lol">
+                    <!-- <p id="listing-category">{{ listing.get_category_display }}</p> -->
+                    <p class="listing-condition">{{ listing.get_condition_display }}</p>
+                    <p class="listing-date">{{ listing.date }}</p>
+                </div>
             </div>
-        </div>
-    </a>
+        </a>
+    </div>
     {% endfor %}
     {% else %}
     <h2> You don't bid on anything</h2>
-    <hr>
     {% endif %}
 {% endblock %}
