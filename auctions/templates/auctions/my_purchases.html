@@ -3,24 +3,29 @@
 {% block body %}
     {% if user_purchases %}
     <h2>My purchases</h2>
-    <hr>
     {% for listing in user_purchases %}
-    <a href="{% url 'show_listing' listing.id listing.name %}" class="a">
-        <div class="row listing">
-            <div class="col-6 left_side">
-                <img src="{{ listing.image.url }}" alt="{{ listing.description }}">
+    <div class="row justify-content-center listing">
+        <a href="{% url 'show_listing' listing.id listing.name %}" class="col-12">
+
+            <div class="col-6 left_side image">
+                <img src="{{ listing.image.url }}" alt="{{ listing.description }}" class="justify-content-center">
             </div>
-            <div class="col-6 right-side">
-                <h4>{{ listing.name }}</h4>
-                <h4>{{ listing.price }}</h4>
-                <p>{{ listing.get_category_display }}</p>
-                <p>{{ listing.description }}</p>
+            <div class="col-6 right_side">
+                <div class="elo">
+                    <h4 class="listing-name">{{ listing.name }}</h4>
+                    <h4 class="listing-price">PLN {{ listing.price }}</h4>
+                </div>
+                <div class="lol">
+                    <!-- <p id="listing-category">{{ listing.get_category_display }}</p> -->
+                    <p class="listing-condition">{{ listing.get_condition_display }}</p>
+                    <p class="listing-date">{{ listing.date }}</p>
+                </div>
             </div>
-        </div>
+        </a>
+    </div>
     </a>
     {% endfor %}
     {% else %}
     <h2> You have not bought anything</h2>
-    <hr>
     {% endif %}
 {% endblock %}
