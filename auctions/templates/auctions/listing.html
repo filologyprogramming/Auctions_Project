@@ -6,7 +6,7 @@
     <div class="row justify-content-evenly listing">
         <div class="col-6">
             {% if listing.active == False %}
-                <h1>SOLD!</h1>
+                <h3 id="sold_to_banner">Sold to user {{ listing.sold_to }}</h3>
             {% endif %}
             <!-- Form to close a listing -->
             {% if listing.active == False %}
