@@ -111,11 +111,20 @@ document.addEventListener("DOMContentLoaded", function() {
                 })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
-                    // Creates a flag when a comment is added
-                    localStorage.setItem("CommentsFlag", ".comment");
-                    // Reload the page after comment is added
-                    location.reload();    
+                    if (data.error) {
+                        console.error(data.error);
+                        let empty_comment = document.querySelector("#empty_comment");
+                        empty_comment.style.display = "block";
+                        setTimeout (function () 
+                            {empty_comment.style.display = "none"}, 2000);
+                    }
+                    else {
+                        console.log(data);
+                        // Creates a flag when a comment is added
+                        localStorage.setItem("CommentsFlag", ".comment");
+                        // Reload the page after comment is added
+                        location.reload();    
+                    }
                 })
                 .catch(error => console.error('Error:', error));
             });  

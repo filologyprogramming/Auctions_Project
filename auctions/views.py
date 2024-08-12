@@ -366,18 +366,15 @@ def add_comment(request, listing_id):
             # Get data from fetch request
             data = json.loads(request.body)
             listing_id = data["listing_id"]
-            if listing_id is None:
-                error = "Can't retrieve listing ID"
-                return render(request, "auctions/error.html", {
-                "error": error
-            })
+            if not listing_id:
+                return JsonResponse({"error": "Cannot retrieve the ID of the listing"}, status=400)
             comment_text = data["comment_text"]
-            if comment_text is None:
-                error = "Can't retrieve comment"
-                return render(request, "auctions/error.html", {
-                "error": error
-            })
-            
+            if not comment_text:
+                return JsonResponse({"error": "No comment given"}, status=400)
+            comment_text = comment_text.strip()
+            if comment_text == None or comment_text == "":
+                return JsonResponse({"error": "A comment cannot be empty"}, status=400)
+
             # Get listing where the comment will be added
             listing = Listing.objects.get(id=listing_id)
             if not listing:

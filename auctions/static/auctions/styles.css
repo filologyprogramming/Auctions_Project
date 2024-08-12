@@ -370,6 +370,11 @@ tr {
     border-top: 1px solid black;
 }
 
+/* Intially none, if a comment is empty, JS changes to block */
+#empty_comment {
+    display: none;
+}
+
 /* Button for adding a comment */
 #add_comment {
     margin-top: 0.5rem;

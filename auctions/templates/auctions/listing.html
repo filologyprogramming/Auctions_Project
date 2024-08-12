@@ -8,6 +8,7 @@
             {% if listing.active == False %}
                 <h3 id="sold_to_banner">Sold to user {{ listing.sold_to }}</h3>
             {% endif %}
+
             <!-- Form to close a listing -->
             {% if listing.active == False %}
             <form inert action ="{% url 'close_listing' listing.id %}" method="post" name="close_listing" id="close_listing_form">
@@ -18,6 +19,7 @@
                 <input type="submit" value="Close Listing" class="button" id="close_listing">
             </form>
             {% endif %}
+
             <!-- Listing -->
             <img src="{{ listing.image.url }}" alt="{{ listing.description }}">
             <div class="elo">
@@ -91,8 +93,6 @@
 
             <!-- Form and button for placing a bid -->
             {% if listing.active == False or user == listing.seller %}
-            <!-- TODO:
-             Empty div here -->
              <div id="he"></div>
                 <!-- <form inert action ="{% url 'place_a_bid' listing.id %}" method="post", name="place_a_bid_form" id="place_a_bid_form"> -->
             {% else %}
@@ -124,6 +124,10 @@
                 <input type="submit" value="Add Comment" class="button" id="add_comment">
             </form>
         {% endif %}
+
+        <div>
+            <p id="empty_comment">The comment cannot be empty</p>
+        </div>
 
         <!-- Single comment -->
         <div id="all_comments_wrapper">
