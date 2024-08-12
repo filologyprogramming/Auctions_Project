@@ -10,7 +10,7 @@
 
     {% for listing in watchlist.listing.all %}
     <!-- Display information about the listing -->
-    <div class="row justify-content-center listing">
+    <div class="row justify-content-center listing" id="listing_{{ listing.id }}">
         <a href="{% url 'show_listing' listing.id listing.name %}" class="col-12">
 
             <div class="col-6 left_side image">
