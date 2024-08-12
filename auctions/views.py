@@ -192,7 +192,7 @@ def show_listing_categories(request):
                 "error": error
             })
         else:
-            listings = Listing.objects.filter(category=category).order_by("-date")
+            listings = Listing.objects.filter(active=True).filter(category=category).order_by("-date")
             print(type(listings))
             if not listings:
                 listings = None
@@ -214,7 +214,6 @@ def show_listing_categories(request):
                             final_list.append(key)
                             key["condition"] = condition[1]
                             print(final_list)
-                            # TODO: Change one category's value to category[1]
                    # print(key)
                     #print(list_of_abbs)
                 
