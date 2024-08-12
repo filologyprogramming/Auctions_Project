@@ -100,7 +100,7 @@
             {% csrf_token %}
                 <input type="hidden" value="{{ listing.id }}" name="listing_id" class="listing_id">
                 {% if bids %}
-                    <input type="number" placeholder="{{ highest_bid }}" id="bid" min="{{ highest_bid_plus_1 }}" max="999999999999" step="0.01" required>
+                    <input type="number" placeholder="{{ highest_bid_plus_1 }}" id="bid" min="{{ highest_bid_plus_1 }}" max="999999999999" step="0.01" required>
                     <input type="submit" class="button" value="Place a bid" id="place_a_bid">
                 {% else %}
                     <input type="number" placeholder="{{ listing.price }}" id="bid" min="{{ listing.price }}" max="999999999999" step="0.01" required>
