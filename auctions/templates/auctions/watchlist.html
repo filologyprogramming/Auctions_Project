@@ -8,10 +8,32 @@
     <h2 id="title">Your Watchlist is empty</h2>
 {% endif %}
 
-    {% for listing in watchlist.listing.all %}
+    <div class="all_listings">
+        {% for listing in watchlist.listing.all %}
+        <div class="listing" id="listing_{{ listing.id }}">
+            <a href="{% url 'show_listing' listing.id listing.name %}">
+                <div class="image_box">
+                    <img src="{{ listing.image.url }}" alt="{{ listing.description }}" class="justify-content-center">
+                </div>
+                <div class="nameprice_box">
+                    <p class="listing-name">{{ listing.name }}</p>
+                    <p class="listing-price">PLN {{ listing.price }}</p>
+                        <div>
+                            <form action="{% url 'remove_from_watchlist' listing.id %}" method="post" class="remove_from_watchlist" name="remove_from_watchlist">
+                                {% csrf_token %}
+                                <input type="hidden" value="{{ listing.id }}" name="listing_id" class="listing_id">
+                                <input type="submit" value="Remove" class="my_buttons">
+                            </form>
+                        </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    {% endblock %}
     <!-- Display information about the listing -->
-    <div class="row justify-content-center listing" id="listing_{{ listing.id }}">
-        <a href="{% url 'show_listing' listing.id listing.name %}" class="col-12">
+
+<!--  
 
             <div class="col-6 left_side image">
                 <img src="{{ listing.image.url }}" alt="{{ listing.description }}" class="justify-content-center">
@@ -21,20 +43,12 @@
                     <h4 class="listing-name">{{ listing.name }}</h4>
                     <h4 class="listing-price">PLN {{ listing.price }}</h4>
                 </div>
-                <div class="lol">
+                <div class="lol"> -->
                     <!-- <p id="listing-category">{{ listing.get_category_display }}</p> -->
-                    <p class="listing-condition">{{ listing.get_condition_display }}</p>
+                <!--    <p class="listing-condition">{{ listing.get_condition_display }}</p>
                     <p class="listing-date">{{ listing.date }}</p>
                 </div>
             </div>
         </a>
-    </div>
+    </div> --> 
             <!-- Remove from watchlist form -->
-            <form action="{% url 'remove_from_watchlist' listing.id %}" method="post" class="remove_from_watchlist" name="remove_from_watchlist" id="remove_from_watchlist">
-                {% csrf_token %}
-                <input type="hidden" value="{{ listing.id }}" name="listing_id" class="listing_id">
-                <input type="submit" value="Remove from watchlist" class="button">
-            </form>
-        </div>
-    {% endfor %}
-{% endblock %}

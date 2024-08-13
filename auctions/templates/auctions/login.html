@@ -5,7 +5,7 @@
     <h2>Login</h2>
 
     {% if message %}
-        <div id="invalid_credent">{{ message }}</div>
+        <div id="invalid_credentials">{{ message }}</div>
     {% endif %}
 
     <form action="{% url 'login' %}" method="post" id="login_form">
@@ -16,7 +16,7 @@
         <div class="form-group">
             <input class="form-control" type="password" name="password" placeholder="Password">
         </div>
-        <input class="btn btn-primary button" type="submit" value="Login">
+        <input class="my_buttons" type="submit" value="Login">
     </form>
 
     <p class="already_registered">Don't have an account? <a href="{% url 'register' %}">Register here.</a></p>

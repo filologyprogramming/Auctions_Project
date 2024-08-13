@@ -14,7 +14,7 @@ html, body { /* Main body settings */
 }
 
 body {
-    background-color: #eeeef2;
+    background-color: #F2F2F2;
 }
 
 body > h1 { /* Styles main h1 */
@@ -22,42 +22,40 @@ body > h1 { /* Styles main h1 */
     flex-wrap: wrap;
     justify-content: center;
     border-radius: 0 0 100% 10%;
-    background-color: #427aa1;
-    color: #eeeef2;
+    background-color: #D95204;
+    color: #F2F2F2;
     margin: 0; 
     
 }
 
 #signed {/* Styles "Signed as..." div */
     display: inline-block;
-    text-align: center;
-    padding-left: 12px;
+    margin-top: 1rem;
+    margin-left: 1rem;
 }
 
 
 /* Navbar */
 .navbar { /* Styles navbar app-wide*/
-    background-color: #eeeef2;
+    background-color: #F2F2F2;
     opacity: 90%;
     position: sticky;
     width: 100%;
 }
 .navbar-toggler { /* Styles expand button in small navbar */
-    background-color: #eeeef2;
+    background-color: #F2F2F2;
     opacity: 100%;
-    box-shadow: 0.3rem 0.3rem #427aa1;
+    box-shadow: 0 0.3rem #8C030E;
 }
 
-/* alternative color #427aa1 */
-
 .active { /* The look of active link */
-    background-color: #427aa1 !important;
+    background-color: #8C030E !important;
     font-weight: bold;
-    color: #eeeef2 !important;
+    color: #F2F2F2 !important;
 }
 
 .dropdown-menu { /* Styles dropdown menu */
-    background-color: #eeeef2;
+    background-color: #F2F2F2;
 }
 
 .dropdown-item { /* Styles single dropdown items */
@@ -74,11 +72,11 @@ h2 { /* Styles main h2 above the page */
     justify-content: center;
     margin-left: 1rem;
     margin-right: 1rem;
+    color: #F2F2F2;
+    background-color: #8C030E;
 }
 
-#sold_to_banner {
-    text-align: center;
-}
+
 
 /* Registration form */
 
@@ -99,18 +97,20 @@ h2 { /* Styles main h2 above the page */
 }
 
 /* Buttons */
-.button {
-    background-color: #427aa1;
-    color: #eeeef2;
-    font-weight: bold;
-    width: fit-content;
-    height: 3rem;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+
+.my_buttons {
+    display: block;
+    background-color: #D95204;
+    color: #F2F2F2;
+    border: #8C030E 2px solid;
     margin-left: auto;
     margin-right: auto;
-    padding: 0.5rem;
-    display: block;
+    border-radius: 0.3rem;
+    
+}
+
+.my_buttons:hover {
+    background-color: #8C030E;
 }
 
 #invalid_credentials {
@@ -132,6 +132,53 @@ h2 { /* Styles main h2 above the page */
     border-top: 1px solid;
 }
 
+
+.all_listings {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    text-align: center;
+    padding: 0;
+}
+
+.listing {
+    width: auto;
+    height: 14rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.image_box {
+    margin: 0;
+    width: 10rem;
+    height: 10rem;
+}
+
+
+img { /*Styles listing image */
+    width: 10rem;
+    height: 10rem;
+    box-sizing: border-box;
+    object-fit: cover;
+    margin: 0;
+}
+
+.nameprice_box {
+    background-color: #D95204;
+    width: 10rem;
+    box-sizing: border-box;
+    border-left: 1px solid #8C030E;
+    border-right: 1px solid #8C030E;
+    border-bottom: 1px solid #8C030E;
+}
+
+.nameprice_box > p {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: #F2F2F2;
+}
+
 .col-12 { /* Makes links fill in the whole width */
     width: 100%;
     padding: 0;
@@ -141,11 +188,6 @@ h2 { /* Styles main h2 above the page */
     width: 100%;
     padding: 0;
     margin: 0;
-}
-
-img { /*Styles listing image */
-    max-width:100%;
-    box-sizing: border-box;
 }
 
 .right_side {
@@ -165,17 +207,11 @@ img { /*Styles listing image */
 }
 
 .listing-name {
-    float: left;
-    flex-wrap: wrap;
     color: #427aa1;
-    font-weight: bold;
 }
 
 .listing-price {
-    float: right;
-    flex-wrap: wrap;
     color:#427aa1;
-    font-weight: bold;
 }
 
 .listing-condition {
@@ -263,6 +299,9 @@ table {
     text-align: center;
 }
 
+#sold_to_banner {
+    text-align: center;
+}
 
 #table_caption {
     text-align: center;
@@ -382,11 +421,9 @@ tr {
 
 /* Stylize links */ 
 a { 
-    cursor: default; color: black; text-decoration:none; 
+    cursor: default; text-decoration:none; 
 }
-.a:hover {
-    text-decoration: underline;
-}
+
 
 /* Select categories form */
 

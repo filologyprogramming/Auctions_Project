@@ -2,28 +2,24 @@
 
 {% block body %}
     <h2>Active Listings</h2>
-    {% for listing in listings %}
-    {% if listing.active == True %}
-    
-    <div class="row justify-content-center listing">
-        <a href="{% url 'show_listing' listing.id listing.name %}" class="col-12">
+    <div class="all_listings">
+        {% for listing in listings %}
+        {% if listing.active == True %}
+        <div class="listing">
+            <a href="{% url 'show_listing' listing.id listing.name %}">
+                <div class="image_box">
+                    <img src="{{ listing.image.url }}" alt="{{ listing.description }}" class="justify-content-center">
+                </div>
+                <div class="nameprice_box">
+                    <p class="listing-name">{{ listing.name }}</p>
+                    <p class="listing-price">PLN {{ listing.price }}</p>
+                </div>
+            </a>
+        </div>
 
-            <div class="col-6 left_side image">
-                <img src="{{ listing.image.url }}" alt="{{ listing.description }}" class="justify-content-center">
-            </div>
-            <div class="col-6 right_side">
-                <div class="elo">
-                    <h4 class="listing-name">{{ listing.name }}</h4>
-                    <h4 class="listing-price">PLN {{ listing.price }}</h4>
-                </div>
-                <div class="lol">
-                    <!-- <p id="listing-category">{{ listing.get_category_display }}</p> -->
-                    <p class="listing-condition">{{ listing.get_condition_display }}</p>
-                    <p class="listing-date">{{ listing.date }}</p>
-                </div>
-            </div>
-        </a>
-    </div>
+                        <!-- <p id="listing-category">{{ listing.get_category_display }}</p> -->
+   
     {% endif %}
     {% endfor %}
+    </div>
 {% endblock %}
