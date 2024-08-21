@@ -93,16 +93,13 @@ h2 { /* Styles main h2 above the page */
 /* Buttons */
 .my_buttons {
     text-align: center;
-    background-color: #D95204;
+    background-color: #8C030E;
     color: #F2F2F2;
     border: #8C030E 2px solid;
     margin-left: 0.5rem;
+    padding: 0.5rem;
     margin-right: 0.5rem;
     border-radius: 0.3rem;
-}
-
-.my_buttons:hover {
-    background-color: #8C030E;
 }
 
 /* Stylizes invalid credentials paragraph */
@@ -120,7 +117,6 @@ h2 { /* Styles main h2 above the page */
 }
 .listing { /* Stylizes a small listing card */
     width: auto;
-    height: 14rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
@@ -228,7 +224,6 @@ img { /* Styles listing image */
 /* Stylizes container for buttons - sticky bottom div */ 
 .button_container {
     background-color: #BF9780;
-    opacity: 80%;
     display: flex;
     position: sticky;
     bottom: 0%;
