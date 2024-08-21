@@ -26,8 +26,8 @@ SECRET_KEY = '6ps8j!crjgrxt34cqbqn7x&b3y%(fny8k8nh21+qa)%ws3fh!q'
 DEBUG = True
 
 # Add MacBooks IP below
-# Then on phone MBA's IP:8000 to acesss 
 # When running run server 0.0.0.0:8000 added after runserver
+# Then on phone MBA's IP:8000 to acesss 
 # Leave list empty to use on macbook
 ALLOWED_HOSTS = []
 

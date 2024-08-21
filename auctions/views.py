@@ -17,7 +17,8 @@ def index(request):
     if not listings:
         return render(request, "auctions/error.html")
     return render(request, "auctions/index.html", {
-        "listings": listings
+        "listings": listings,
+        "navbar": True
     })
 
 # Login-in a user
@@ -38,7 +39,9 @@ def login_view(request):
                 "message": "Invalid username and/or password."
             })
     else:
-        return render(request, "auctions/login.html")
+        return render(request, "auctions/login.html", {
+            "navbar": True
+        })
 
 
 def logout_view(request):
@@ -56,7 +59,8 @@ def register(request):
         confirmation = request.POST["confirmation"]
         if password != confirmation:
             return render(request, "auctions/register.html", {
-                "message": "Passwords must match."
+                "message": "Passwords must match.",
+                "navbar": True
             })
 
         # Attempt to create new user
@@ -65,12 +69,15 @@ def register(request):
             user.save()
         except IntegrityError:
             return render(request, "auctions/register.html", {
-                "message": "Username already taken."
+                "message": "Username already taken.",
+                "navbar": True
             })
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
     else:
-        return render(request, "auctions/register.html")
+        return render(request, "auctions/register.html", {
+            "navbar": True
+        })
 
 
 # Show and process a create listing form
@@ -83,11 +90,13 @@ def create(request):
         if not form:
             error = "Can't retrieve a create listing form"
             return render(request, "auctions/error.html", {
-                "error": error
+                "error": error,
+                "navbar": True
             })
         else:
             return render(request, "auctions/create.html", {
-                "form": form
+                "form": form,
+                "navbar": True
             })
     else:
         # Get form filled with data provided by a user
@@ -118,7 +127,8 @@ def create(request):
         else:
             error = "Submitted form is invalid"
             return render(request, "auctions/error.html", {
-                "error": error
+                "error": error,
+                "navbar": True
             })
 
 
@@ -130,7 +140,8 @@ def show_listing(request, listing_id, listing_name):
         if not listing:
             error = "Can't retrieve listings"
             return render(request, "auctions/error.html", {
-                "error": error
+                "error": error,
+                "navbar": True
             })
         else:
             # Get empty comment form
@@ -170,7 +181,8 @@ def show_listing(request, listing_id, listing_name):
             "comments": comments,
             "bids": bids,
             "highest_bid": highest_bid,
-            "highest_bid_plus_1": highest_bid_plus_1
+            "highest_bid_plus_1": highest_bid_plus_1,
+            "navbar": False
         })
 
 
@@ -182,6 +194,7 @@ def categories(request):
         all_categories = [c for c in Listing.CATEGORIES_CHOICES]
         return render(request, "auctions/categories.html", {
             "all_categories": all_categories,
+            "navbar": True
         })
     
 def show_listing_categories(request):
@@ -189,7 +202,8 @@ def show_listing_categories(request):
         if category is None:
             error = "Can't retrieve selected category"
             return render(request, "auctions/error.html", {
-                "error": error
+                "error": error,
+                "navbar": True
             })
         else:
             listings = Listing.objects.filter(active=True).filter(category=category).order_by("-date")
@@ -230,11 +244,13 @@ def my_listings(request):
         if not user_listings:
             user_listings = None
             return render(request, "auctions/my_listings.html", {
-                "user_listings": user_listings
+                "user_listings": user_listings,
+                "navbar": True
             })
         else:
             return render(request, "auctions/my_listings.html", {
-                "user_listings": user_listings
+                "user_listings": user_listings,
+                "navbar": True
             })
 
 @login_required(login_url='login')
@@ -246,11 +262,13 @@ def my_purchases(request):
         if not user_purchases:
             user_purchases = None
             return render(request, "auctions/my_purchases.html", {
-                "user_purchases": user_purchases
+                "user_purchases": user_purchases,
+                "navbar": True
             })
         else:
             return render(request, "auctions/my_purchases.html", {
-                "user_purchases": user_purchases
+                "user_purchases": user_purchases,
+                "navbar": True
             })
 
 @login_required(login_url='login')
@@ -263,12 +281,14 @@ def active_biddings(request):
         if not bids:
             active_biddings = None
             return render(request, "auctions/active_biddings.html", {
-                "user_listings": active_biddings
+                "user_listings": active_biddings,
+                "navbar": True
             })
         else:
             active_biddings = Listing.objects.filter(id__in=bids)
             return render(request, "auctions/active_biddings.html", {
-                "user_listings": active_biddings
+                "user_listings": active_biddings,
+                "navbar": True
             })
     
     
@@ -281,10 +301,12 @@ def show_watchlist(request):
         except Watchlist.DoesNotExist:
             # Pass empty watchlist, html conditionally uses it to change a heading
             return render(request, "auctions/watchlist.html", {
-            "watchlist": None
+            "watchlist": None,
+            "navbar": True
         })
         return render(request, "auctions/watchlist.html", {
-            "watchlist": watchlist
+            "watchlist": watchlist,
+            "navbar": True
         })
     
 
@@ -298,7 +320,8 @@ def add_to_watchlist(request, listing_id):
             if listing_id is None:
                 error = "Listing doesn't exist"
                 return render(request, "auctions/error.html", {
-                "error": error
+                "error": error,
+                "navbar": True
             })
             else:
                 # Try to create a watchlist for a user if it doesn't exist
@@ -307,7 +330,8 @@ def add_to_watchlist(request, listing_id):
                 if not listing:
                     error = "No such listing"
                     return render(request, "auctions/error.html", {
-                    "error": error
+                    "error": error,
+                    "navbar": True
                 })
                 # Add new listing to a watchlist
                 watchlist.listing.add(listing)
@@ -328,7 +352,8 @@ def remove_from_watchlist(request, listing_id):
             if listing_id is None:
                 error = "Listing doesn't exist"
                 return render(request, "auctions/error.html", {
-                "error": error
+                "error": error,
+                "navbar": True
             })
             else:
                 # Get user's watchlist
@@ -336,13 +361,15 @@ def remove_from_watchlist(request, listing_id):
                 if not watchlist:
                     error = "Can't access the watchlist"
                     return render(request, "auctions/error.html", {
-                    "error": error
+                    "error": error,
+                    "navbar": True
                 })
                 listing = Listing.objects.get(id=listing_id)
                 if not listing:
                     error = "Can't access the watchlist"
                     return render(request, "auctions/error.html", {
-                    "error": error
+                    "error": error,
+                    "navbar": True
                 })
                 # Remove new listing from a watchlist
                 watchlist.listing.remove(listing)
@@ -379,7 +406,8 @@ def add_comment(request, listing_id):
             if not listing:
                 error = "Can't retrieve thevlisting"
                 return render(request, "auctions/error.html", {
-                "error": error
+                "error": error,
+                "navbar": True
             })
             # Get user who adds a comment
             user = request.user
@@ -409,14 +437,16 @@ def place_a_bid(request, listing_id):
             if listing_id is None:
                 error = "Can't retrieve listing ID"
                 return render(request, "auctions/error.html", {
-                "error": error
+                "error": error,
+                "navbar": True
             })
 
             placed_bid = data["bid"]
             if placed_bid is None or placed_bid == "":
                 error = "Can't retrieve a new bid"
                 return render(request, "auctions/error.html", {
-                "error": error
+                "error": error,
+                "navbar": True
             })
             
             # Format placed bid to 2 decimal places
@@ -427,14 +457,16 @@ def place_a_bid(request, listing_id):
             if not listing:
                 error = "Can't retrieve listing"
                 return render(request, "auctions/error.html", {
-                "error": error
+                "error": error,
+                "navbar": True
             })
             # Check if bidder is not the seller (ensures no artificial prce bumping)
             bidder = request.user
             if bidder == listing.seller:
                 error = "You can't bid on your own item"
                 return render(request, "auctions/error.html", {
-                "error": error
+                "error": error,
+                "navbar": True
             })
 
             # Get original price
@@ -446,7 +478,8 @@ def place_a_bid(request, listing_id):
             if placed_bid <= initial_price or placed_bid > heighest_price or placed_bid < 0:
                 error = "Bid is either too high, lower than initial price or lower than zero"
                 return render(request, "auctions/error.html", {
-                "error": error
+                "error": error,
+                "navbar": True
             })
             
             # Ensure the bid is positive
@@ -462,7 +495,8 @@ def place_a_bid(request, listing_id):
                     # Show error message if it's equal or lower than initial prize
                     error = "New bid cannot be lower or equal to initial price"
                     return render(request, "auctions/error.html", {
-                    "error": error
+                    "error": error,
+                    "navbar": True
             })
                 # If new bid is higher than initial prize, add it
                 else:
@@ -486,7 +520,8 @@ def place_a_bid(request, listing_id):
                 if placed_bid <= highest_bid:
                     error = "New bid cannot be lower or equal the highest bid"
                     return render(request, "auctions/error.html", {
-                    "error": error
+                    "error": error,
+                    "navbar": True
                 })
                 else:
                     new_bid = Bid (
@@ -516,7 +551,8 @@ def close_listing(request, listing_id):
         if not listing:
             error = "Cannot retrieve the listing"
             return render(request, "auctions/error.html", {
-            "error": error
+            "error": error,
+            "navbar": True
         })
 
         # Get highest bid and the owner of the bid

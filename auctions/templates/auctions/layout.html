@@ -11,6 +11,7 @@
         <script src="{% static 'auctions/scripts.js' %}"></script>
     </head>
     <body>
+        {% if navbar %}
         <h1>Auctions</h1>
         <div id="signed">
             {% if user.is_authenticated %}
@@ -20,9 +21,7 @@
             {% endif %}
         </div>
         
-        
         <!-- Navbar-->
-        <!-- Figure out why sticky topworks only on layout page -->
         <nav class="navbar navbar-expand-md sticky-top">
             <div class="container-fluid justify-content-end">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,6 +66,7 @@
                 </div>
             </div>
         </nav>
+        {% endif %}
     
 
         {% block body %}

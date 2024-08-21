@@ -32,7 +32,8 @@ document.addEventListener("DOMContentLoaded", function() {
             let listing_id = document.querySelector(".listing_id").value;
             
             // Get value of a button - "Add..." or "Remove..."
-            let input = document.querySelector(".button");
+            let input = document.querySelector("#add_to_watchlist");
+            console.log(input);
             
             if (input.value == "Add to watchlist") {
                 // Sent listing ID to view
