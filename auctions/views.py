@@ -207,7 +207,6 @@ def show_listing_categories(request):
             })
         else:
             listings = Listing.objects.filter(active=True).filter(category=category).order_by("-date")
-            print(type(listings))
             if not listings:
                 listings = None
                 return JsonResponse({"listings": listings})

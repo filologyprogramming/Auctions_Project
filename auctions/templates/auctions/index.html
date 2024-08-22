@@ -2,7 +2,7 @@
 
 {% block body %}
     <h2>Active Listings</h2>
-    <div class="all_listings">
+    <div class="all_listings"> <!-- listing_granparent (DONE) -->
         {% for listing in listings %}
         {% if listing.active == True %}
         <div class="listing">

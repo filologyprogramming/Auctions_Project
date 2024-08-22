@@ -218,7 +218,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 
                 // Deletes all listings - works like a web refresh without refreshing
                 // Find the parent in the html
-                let parent_element = document.querySelector("#list_of_listings");
+                let parent_element = document.querySelector(".all_listings");
                 if (parent_element != null) {
                     // Get all children of a parent
                     let children = parent_element.getElementsByTagName("*");
@@ -237,76 +237,56 @@ document.addEventListener("DOMContentLoaded", function() {
                     // Go over through all listings
                     for (let i = 0; i < data.listings.length; i++) {
                         // Create a structure for each listing
-                        // Create a grandparent
-                        let list_of_listings = document.querySelector("#list_of_listings");
-                        let listing_grandparent = document.createElement("div");
-                        list_of_listings.appendChild(listing_grandparent);
-                        // Create first and only parent
-                        let parent1 = document.createElement("a");
-                        listing_grandparent.appendChild(parent1);
+                        // Choose a granparent
+                        let all_listings = document.querySelector(".all_listings");
+                        //let grandparent = document.createElement("div");
+                        // Join grandparent
+                        //list_of_listings.appendChild(grandparent);
+                        // grandparent.className = "all_listings"
+
+                        // Create a parent (listing)
+                        let parent = document.createElement("div");
+                        all_listings.appendChild(parent);
+                        parent.className = "listing"
                         
-                        // Create first child
-                        let child1 = document.createElement("div");
-                        parent1.appendChild(child1);
-                        
-                        // Create second child
-                        let child2 = document.createElement("div");
-                        parent1.appendChild(child2);
-                        
-                        // Create image tag for 1st child (left side)
-                        let image = document.createElement("img");
-                        child1.appendChild(image);
-                        
-                        // Create tags for 2nd child (right side)
-                        elo_class = document.createElement("div");
-                        lol_class = document.createElement("div");
-                        heading4 = document.createElement("h4");
-                        heading4v2 = document.createElement("h4");
-                        p0 = document.createElement("p");
-                        p1 = document.createElement("p");
-                        child2.appendChild(elo_class);
-                        child2.appendChild(lol_class);
-                        elo_class.appendChild(heading4);
-                        elo_class.appendChild(heading4v2);
-                        lol_class.appendChild(p0);
-                        lol_class.appendChild(p1);
-                        
-                        // Give classes to grandparent (main div)  
-                        listing_grandparent.className = "row justify-content-center listing"
-                        
-                        // Give classes to parent (link)
+                        // Create first child (link)
+                        let child = document.createElement("a");
+                        parent.appendChild(child);
                         let listing_id = data.listings[i].id;
                         let listing_name = data.listings[i].name;
-                        parent1.setAttribute('href', `/${listing_id}/${listing_name}`);
-                        parent1.className = "col-12"
+                        child.setAttribute('href', `/${listing_id}/${listing_name}`);
+
                         
-                        // Give classes to children
-                        child1.className = "col-6 left_side image";
-                        child2.className = "col-6 right_side";
-                        
-                        // Give classes to grandchildren
-                        elo_class.className = "elo";
-                        lol_class.className = "lol";
-                        
-                        
-                        // Add the source to the picture
+                        // Create child of child (imagebox)
+                        let image_box = document.createElement("div");
+                        child.appendChild(image_box);
+                        image_box.className = "image_box"
+                    
+
+                        // Create nameprice box
+                        let nameprice_box = document.createElement("div");
+                        child.appendChild(nameprice_box);
+                        nameprice_box.className = "nameprice_box"
+
+                        // Add picture
+                        let image = document.createElement("img");
+                        image_box.appendChild(image);
                         let image_url = data.listings[i].image;
                         let image_description = data.listings[i].description;
+                        // Add the source to the picture
                         image.setAttribute('src', `${image_url}`);
                         image.setAttribute('alt', `${image_description}`);
                         
-                        // Set the content of each element
-                        heading4.textContent = data.listings[i].name;
-                        heading4.setAttribute("class", "listing-name");
-                        heading4v2.textContent = "PLN " + data.listings[i].price;
-                        heading4v2.setAttribute("class", "listing-price");
-                        p0.textContent = data.listings[i].condition;
-                        p0.setAttribute("class", "listing-condition");
-                        let iso_date = data.listings[i].date;
-                        let formatted_date = iso_date.substring(0,10);
-                        p1.textContent = formatted_date;
-                        
-                        p1.setAttribute("class", "listing-date");
+                        // Create tags for paragraphs
+                        name_paragraph = document.createElement("p");
+                        price_paragraph = document.createElement("p");
+                        nameprice_box.appendChild(name_paragraph);
+                        nameprice_box.appendChild(price_paragraph);
+                        name_paragraph.className = "listing-name";
+                        price_paragraph.className = "listing-price"
+                        name_paragraph.textContent = data.listings[i].name;
+                        price_paragraph.textContent = "PLN " + data.listings[i].price;
+                    
                     }
                     // Change the url
                     // history.pushState(null, null, `categories/${selected_category.value}`)

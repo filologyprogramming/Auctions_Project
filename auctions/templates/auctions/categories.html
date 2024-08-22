@@ -2,7 +2,6 @@
 
 {% block body %}
     <h2>Categories</h2>
-    <hr>
     <form action ="{% url 'categories' %}" method="get" name="categories" id="categories_form">
         <select id="selected_category">
             <option selected="true" disabled="disabled">Choose a category</option>  
@@ -12,7 +11,7 @@
         </select>
     </form>
 
-    <div id="list_of_listings">
+    <div class="all_listings">
         <!-- Populated depending on user's choice from select form-->
     </div>
     
