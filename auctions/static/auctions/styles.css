@@ -318,7 +318,6 @@ tr:nth-child(2n+1) {
 }
 
 /* Comment section */
-
 #comment_section {
     text-align: center;
 }
@@ -401,6 +400,7 @@ a {
 
 /* Select categories form */
 #categories_form {
+    margin-top: 1rem;
     margin-bottom: 1rem;
     text-align: center;
 }
