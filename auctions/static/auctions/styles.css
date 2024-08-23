@@ -388,10 +388,6 @@ tr:nth-child(2n+1) {
 }
 
 
-/* Stylize links */ 
-a { 
-    cursor: default; text-decoration:none; 
-}
 
 
 /* Select categories form */
