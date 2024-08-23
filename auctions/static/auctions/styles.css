@@ -421,7 +421,8 @@ a {
     width: 20rem;
 }
 
-footer {
+
+footer { /* Stylizes footer */
     margin-top: 1rem;
     height: 20rem;
     background-color: #0d0d0d;
