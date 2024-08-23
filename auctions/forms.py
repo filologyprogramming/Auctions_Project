@@ -17,7 +17,7 @@ class ListingForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'id': 'name_form'}),
             'price': forms.TextInput(attrs={'id': 'price_form'}),
-            'description': forms.Textarea(attrs={'id': 'description_form'}),
+            'description': forms.Textarea(attrs={'id': 'description_form', }),
             'image': forms.FileInput(attrs={'id': 'image_form'}),
             'condition': forms.Select(attrs={'id': 'condition_form'}),
             'category': forms.Select(attrs={'id': 'category_form'})

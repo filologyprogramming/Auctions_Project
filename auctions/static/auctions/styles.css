@@ -387,10 +387,6 @@ tr:nth-child(2n+1) {
     display: none;
 }
 
-/* Button for adding a comment */
-#add_comment {
-    margin-top: 0.5rem;
-}
 
 /* Stylize links */ 
 a { 
@@ -405,27 +401,36 @@ a {
     text-align: center;
 }
 
+
 /* Create a form form */
-#create_form > div {
-    margin: 1rem;
+#create_form {
     text-align: center;
 }
 
-#create_form > div > label {
+#create_form > div {
+    margin: 1rem;
+}
+
+#create_form > div > label { /* Stylizes lables in a form */
     font-weight: bold;
-    float: left;
+    display: block;
+}
+
+#image_form {
+    padding-left: 2rem;
+    margin: 0;
+    font-size: smaller;
 }
 
 #description_form {
-    height: 10rem;
-    width: 20rem;
+    height: 8rem;
+    width: 80%;
 }
-
 
 footer { /* Stylizes footer */
     margin-top: 1rem;
     height: 20rem;
-    background-color: #0d0d0d;
+    background-color: #BF9780;
 }
 
 /* Listing */
