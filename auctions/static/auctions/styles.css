@@ -344,6 +344,7 @@ tr:nth-child(2n+1) {
 }
 
 .comment {
+    font-weight: bold;
     margin-top: 0.3rem;
     margin-left: 1rem;
     margin-bottom: 0;
@@ -423,10 +424,35 @@ tr:nth-child(2n+1) {
     width: 80%;
 }
 
-footer { /* Stylizes footer */
-    margin-top: 1rem;
-    height: 20rem;
-    background-color: #BF9780;
+
+/* Stylizes footer */
+footer {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    background-color: #d9520438;
+    font-weight: bold;
+}
+
+#footer_links {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    margin: 1rem;
+}
+
+footer > p {
+    text-align: center;
+    font-size: small;
+}
+
+/* Stylizes links */
+a {
+    text-decoration: none;
+    color: #0d0d0d;
 }
 
 /* Listing */
