@@ -70,6 +70,7 @@ h2 { /* Styles main h2 above the page */
     margin-right: 1rem;
     color: #F2F2F2;
     background-color: #8C030E;
+    border-radius: 1rem;
 }
 
 
@@ -99,7 +100,7 @@ h2 { /* Styles main h2 above the page */
     margin-left: 0.5rem;
     padding: 0.5rem;
     margin-right: 0.5rem;
-    border-radius: 0.3rem;
+    border-radius: 1rem;
 }
 
 /* Stylizes invalid credentials paragraph */
@@ -133,6 +134,8 @@ img { /* Styles listing image */
     box-sizing: border-box;
     object-fit: cover;
     margin: 0;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
 }
 
 .nameprice_box { /* Stylizes small descriptions under small images */
@@ -142,6 +145,8 @@ img { /* Styles listing image */
     border-left: 1px solid #8C030E;
     border-right: 1px solid #8C030E;
     border-bottom: 1px solid #8C030E;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
 }
 
 .nameprice_box > p { /* Stylizes title and price under small images */
