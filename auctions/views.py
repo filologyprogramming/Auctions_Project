@@ -556,12 +556,25 @@ def close_listing(request, listing_id):
 
         # Get highest bid and the owner of the bid
         highest_bid_object = Bid.objects.filter(listing=listing).order_by("-bid").first()
-        # Sold for
+        if not highest_bid_object:
+            listing.active = False
+            listing.save()
+            return redirect('show_listing', listing_id=listing_id, listing_name=listing.name)
+    
+        # Get the highest bid on a listing
         highest_bid = highest_bid_object.bid
-        # Sold to
+        if not highest_bid:
+            error = "No bids made"
+            return render(request, "auctions/error.html", {
+            "error": error,
+            "navbar": True
+        })
+
+        # Get who bid the highest
         highest_bidder = highest_bid_object.bidder
 
         # Update the listing
+        listing.sold_for = highest_bid
         listing.sold_to = highest_bidder
         listing.active = False
         listing.save()

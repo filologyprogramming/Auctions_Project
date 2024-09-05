@@ -61,6 +61,7 @@ class Listing(models.Model):
     seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name = 'listings')
     active = models.BooleanField(default = True)
     sold_to = models.ForeignKey(User, on_delete=models.CASCADE, related_name = 'won_listing', null=True, blank=True)
+    sold_for = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
 
     def __str__(self):
         return self.name

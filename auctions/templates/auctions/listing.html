@@ -76,7 +76,9 @@
     </div>
     
     <!-- Form to close a listing -->
-    {% if listing.active == False %}
+    {% if listing.sold_to == None and user == listing.seller %}
+    <h3 id="sold_to_banner">Listing not sold</h3>
+    {% elif listing.active == False %}
     <h3 id="sold_to_banner">Sold to user {{ listing.sold_to }}</h3>
     {% else %}
     <div class="button_container">
