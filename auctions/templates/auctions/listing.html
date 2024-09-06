@@ -6,17 +6,17 @@
     
     <!-- Listing -->
     <img src="{{ listing.image.url }}" alt="{{ listing.description }}" class="listing_image">
+    <p class="listing_name_big">{{ listing.name }}</p>
     <div class="main_info">
-        <p class="listing_seller">{{ listing.seller }}</p>
-        <p class="listing_name">{{ listing.name }}</p>
+        <p class="listing_seller_big">Posted by: {{ listing.seller }}</p>
         <p class="listing_description">{{ listing.description }}</p>
     </div>
     <div class="secondary_info">
         {% if not bids %}
-        <!-- Actual live price -->
-        <p class="listing_price">PLN {{ listing.price }}</p>
+        <!-- Actual live  -->
+        <p class="listing_price_big">PLN {{ listing.price }}</p>
         {% else %}
-        <p class="listing_price">PLN {{ highest_bid }}</p>
+        <p class="listing_price_big">PLN {{ highest_bid }}</p>
         {% endif %}
         <p class="listing_condition">{{ listing.get_condition_display }}</p>
         <p class="listing_date">{{ listing.date }}</p>
