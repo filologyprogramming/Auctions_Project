@@ -333,6 +333,7 @@ def add_to_watchlist(request, listing_id):
                     "navbar": True
                 })
                 # Add new listing to a watchlist
+                # Creates a new relationship between listing <> watchlist
                 watchlist.listing.add(listing)
                 return JsonResponse({'message': 'Listing added to watchlist'})
         except json.decoder.JSONDecodeError as e:

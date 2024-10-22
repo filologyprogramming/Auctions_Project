@@ -5991,3 +5991,4 @@ auctions/__pycache__/tests.cpython-312.pyc
 .venv/lib/python3.12/site-packages/pip-24.2.dist-info/WHEEL
 auctions/migrations/__pycache__/0028_listing_sold_for_alter_listing_category_and_more.cpython-312.pyc
 auctions/migrations/0028_listing_sold_for_alter_listing_category_and_more.py
+commerce/settings.py
