@@ -3,6 +3,7 @@ An auction website based on CS50 project
 
 ## TODOs:
 - make an app desktop-friendly
+- add pagination
 
 ### Functionality
 
