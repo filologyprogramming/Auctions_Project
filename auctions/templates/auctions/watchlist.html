@@ -3,9 +3,9 @@
 {% block body %}
 
 {% if watchlist %}
-<h2 id="title">Your Watchlist</h2>
+    <h2 id="title">Your Watchlist</h2>
 {% else %}
-<h2 id="title">Your Watchlist is empty</h2>
+    <h2 id="title">Your Watchlist is empty</h2>
 {% endif %}
 
 <div class="all_listings">
@@ -29,6 +29,26 @@
     </div>
     {% endfor %}
 </div>
+<!-- Pagination -->
+<div class="pagination">
+    <span class="step-links">
+        {% if watchlist.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ watchlist.number }} of {{ watchlist.paginator.num_pages }}.
+        </span>
+
+        {% if watchlist.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+
 {% endblock %}
 <!-- Display information about the listing -->
 

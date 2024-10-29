@@ -2,23 +2,41 @@
 
 {% block body %}
 {% if user_purchases %}
-<h2>My purchases</h2>
-<div class="all_listings">
-    {% for listing in user_purchases %}
-    <div class="listing">
-        <a href="{% url 'show_listing' listing.id listing.name %}">
-            <div class="image_box">
-                <img src="{{ listing.image.url }}" alt="{{ listing.description }}" class="justify-content-center">
-            </div>
-            <div class="nameprice_box">
-                <p class="listing-name">{{ listing.name }}</p>
-                <p class="listing-price">PLN {{ listing.price }}</p>
-            </div>
-        </a>
+    <h2>My purchases</h2>
+    <div class="all_listings">
+        {% for listing in user_purchases %}
+        <div class="listing">
+            <a href="{% url 'show_listing' listing.id listing.name %}">
+                <div class="image_box">
+                    <img src="{{ listing.image.url }}" alt="{{ listing.description }}" class="justify-content-center">
+                </div>
+                <div class="nameprice_box">
+                    <p class="listing-name">{{ listing.name }}</p>
+                    <p class="listing-price">PLN {{ listing.price }}</p>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
+     <!-- Pagination -->
+     <div class="pagination">
+        <span class="step-links">
+            {% if user_purchases.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ user_purchases.number }} of {{ user_purchases.paginator.num_pages }}.
+            </span>
+
+            {% if user_purchases.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 {% else %}
-<h2> You have not bought anything</h2>
+    <h2> You have not bought anything</h2>
 {% endif %}
 {% endblock %}

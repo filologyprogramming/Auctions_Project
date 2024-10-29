@@ -2,23 +2,41 @@
 
 {% block body %}
 {% if user_listings %}
-<h2>My listings</h2>
-<div class="all_listings">
-    {% for listing in user_listings %}
-    <div class="listing">
-        <a href="{% url 'show_listing' listing.id listing.name %}">
-            <div class="image_box">
-                <img src="{{ listing.image.url }}" alt="{{ listing.description }}" class="justify-content-center">
-            </div>
-            <div class="nameprice_box">
-                <p class="listing-name">{{ listing.name }}</p>
-                <p class="listing-price">PLN {{ listing.price }}</p>
-            </div>
-        </a>
+    <h2>My listings</h2>
+    <div class="all_listings">
+        {% for listing in user_listings %}
+        <div class="listing">
+            <a href="{% url 'show_listing' listing.id listing.name %}">
+                <div class="image_box">
+                    <img src="{{ listing.image.url }}" alt="{{ listing.description }}" class="justify-content-center">
+                </div>
+                <div class="nameprice_box">
+                    <p class="listing-name">{{ listing.name }}</p>
+                    <p class="listing-price">PLN {{ listing.price }}</p>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
+    <!-- Pagination -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if user_listings.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ user_listings.number }} of {{ user_listings.paginator.num_pages }}.
+            </span>
+
+            {% if user_listings.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 {% else %}
-<h2> You are not selling anything</h2>
+    <h2> You are not selling anything</h2>
 {% endif %}
 {% endblock %}

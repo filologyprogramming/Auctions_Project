@@ -454,9 +454,19 @@ footer > p {
 }
 
 /* Stylizes links */
-a {
+/* a {
     text-decoration: none;
     color: #F2F2F2;
+}
+    /*
+
+/* Pagination */
+.pagination {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Listing */
@@ -509,4 +519,16 @@ a {
     .nameprice_box > p {
         text-wrap: wrap;
     }
+    /* Paginator link */
+    .step-links {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    /* "Next", "Last" pagination buttons */
+    .step-links > a {
+        margin-left: 0.25rem;
+        margin-right: 0.25rem;
+    }
+    
 }

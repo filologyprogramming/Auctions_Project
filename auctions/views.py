@@ -1,14 +1,15 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from .forms import ListingForm, CommentForm, CategoriesForm
+from .forms import ListingForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from .models import Listing, Watchlist, Comment, Bid
 from .models import User
 from datetime import datetime
 import json
+from django.core.paginator import Paginator
 
 
 # Shows index page with all listings
@@ -16,8 +17,16 @@ def index(request):
     listings = Listing.objects.all().order_by("-date")
     if not listings:
         return render(request, "auctions/error.html")
+    
+    # Create paginator
+    paginator = Paginator(listings, 4)
+    # Get page number
+    page_number = request.GET.get("page")
+    # Create page object
+    page_obj = paginator.get_page(page_number)
+
     return render(request, "auctions/index.html", {
-        "listings": listings,
+        "page_obj": page_obj,
         "navbar": True
     })
 
@@ -247,6 +256,12 @@ def my_listings(request):
                 "navbar": True
             })
         else:
+            # Create paginator
+            paginator = Paginator(user_listings, 4)
+            # Get page number
+            page_number = request.GET.get("page")
+            # Create page object
+            user_listings = paginator.get_page(page_number)
             return render(request, "auctions/my_listings.html", {
                 "user_listings": user_listings,
                 "navbar": True
@@ -265,6 +280,12 @@ def my_purchases(request):
                 "navbar": True
             })
         else:
+            # Create paginator
+            paginator = Paginator(user_purchases, 4)
+            # Get page number
+            page_number = request.GET.get("page")
+            # Create page object
+            user_purchases = paginator.get_page(page_number)
             return render(request, "auctions/my_purchases.html", {
                 "user_purchases": user_purchases,
                 "navbar": True
