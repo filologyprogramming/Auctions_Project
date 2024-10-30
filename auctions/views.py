@@ -298,16 +298,25 @@ def active_biddings(request):
         user = request.user
         # Get bids where a user is bidder, check for unique values on listing column
         bids = Bid.objects.filter(bidder=user).values('listing').distinct()
+        print(bids)
         if not bids:
             active_biddings = None
             return render(request, "auctions/active_biddings.html", {
-                "user_listings": active_biddings,
+                "active_biddings": active_biddings,
                 "navbar": True
             })
         else:
+            # Get listings on which user bids 
             active_biddings = Listing.objects.filter(id__in=bids)
+            # Create paginator
+            paginator = Paginator(active_biddings, 4)
+            # Get page number
+            page_number = request.GET.get("page")
+            # Create page object
+            active_biddings = paginator.get_page(page_number)
+
             return render(request, "auctions/active_biddings.html", {
-                "user_listings": active_biddings,
+                "active_biddings": active_biddings,
                 "navbar": True
             })
     
@@ -325,15 +334,12 @@ def show_watchlist(request):
             "navbar": True
         })
 
-       # TODO: Order object either hehe or in META on model.py 
-
         # Get listings from a user's watchlist
         listings = watchlist.listing.all().order_by("-date")
         # Create paginator
         paginator = Paginator(listings, 4)
         # Get page number
         page_number = request.GET.get("page")
-        print(page_number)
         # Create page object
         listings = paginator.get_page(page_number)
         return render(request, "auctions/watchlist.html", {

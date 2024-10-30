@@ -23,7 +23,7 @@
         <span class="step-links">
             {% if user_listings.has_previous %}
                 <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                <a href="?page={{ user_listings.previous_page_number }}">previous</a>
             {% endif %}
 
             <span class="current">
@@ -31,8 +31,8 @@
             </span>
 
             {% if user_listings.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">next</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                <a href="?page={{ user_listings.next_page_number }}">next</a>
+                <a href="?page={{ user_listings.paginator.num_pages }}">last &raquo;</a>
             {% endif %}
         </span>
     </div>

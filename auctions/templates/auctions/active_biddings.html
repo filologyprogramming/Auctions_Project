@@ -1,23 +1,42 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-{% if user_listings %}
-<h2>You bid on following listings</h2>
-<div class="all_listings">
-    {% for listing in user_listings %}
-    <div class="listing">
-        <a href="{% url 'show_listing' listing.id listing.name %}">
-            <div class="image_box">
-                <img src="{{ listing.image.url }}" alt="{{ listing.description }}" class="justify-content-center">
-            </div>
-            <div class="nameprice_box">
-                <p class="listing-name">{{ listing.name }}</p>
-                <p class="listing-price">PLN {{ listing.price }}</p>
-            </div>
-        </a>
-    </div>
-    {% endfor %}
-</div>
+{% if active_biddings %}
+    <h2>You bid on following listings</h2>
+        <div class="all_listings">
+            {% for listing in active_biddings %}
+                <div class="listing">
+                    <a href="{% url 'show_listing' listing.id listing.name %}">
+                        <div class="image_box">
+                            <img src="{{ listing.image.url }}" alt="{{ listing.description }}" class="justify-content-center">
+                        </div>
+                        <div class="nameprice_box">
+                            <p class="listing-name">{{ listing.name }}</p>
+                            <p class="listing-price">PLN {{ listing.price }}</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <span class="step-links">
+                {% if active_biddings.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ active_biddings.previous_page_number }}">previous</a>
+                {% endif %}
+        
+                <span class="current">
+                    Page {{ active_biddings.number }} of {{ active_biddings.paginator.num_pages }}.
+                </span>
+        
+                {% if active_biddings.has_next %}
+                    <a href="?page={{ active_biddings.next_page_number }}">next</a>
+                    <a href="?page={{ active_biddings.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
 {% else %}
 <h2> You don't bid on anything</h2>
 {% endif %}
