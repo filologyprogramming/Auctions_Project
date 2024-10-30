@@ -324,8 +324,20 @@ def show_watchlist(request):
             "watchlist": None,
             "navbar": True
         })
+
+       # TODO: Order object either hehe or in META on model.py 
+
+        # Get listings from a user's watchlist
+        listings = watchlist.listing.all().order_by("-date")
+        # Create paginator
+        paginator = Paginator(listings, 4)
+        # Get page number
+        page_number = request.GET.get("page")
+        print(page_number)
+        # Create page object
+        listings = paginator.get_page(page_number)
         return render(request, "auctions/watchlist.html", {
-            "watchlist": watchlist,
+            "watchlist": listings,
             "navbar": True
         })
     

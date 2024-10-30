@@ -4,51 +4,49 @@
 
 {% if watchlist %}
     <h2 id="title">Your Watchlist</h2>
+    <div class="all_listings">
+        {% for listing in watchlist %}
+            <div class="listing" id="listing_{{ listing.id }}">
+                <a href="{% url 'show_listing' listing.id listing.name %}">
+                    <div class="image_box">
+                        <img src="{{ listing.image.url }}" alt="{{ listing.description }}" class="justify-content-center">
+                    </div>
+                    <div class="nameprice_box">
+                        <p class="listing-name">{{ listing.name }}</p>
+                        <p class="listing-price">PLN {{ listing.price }}</p>
+                        <form action="{% url 'remove_from_watchlist' listing.id %}" method="post"
+                            class="remove_from_watchlist" name="remove_from_watchlist">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{ listing.id }}" name="listing_id" class="listing_id">
+                            <input type="submit" value="Remove" class="my_buttons">
+                        </form>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if watchlist.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ watchlist.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ watchlist.number }} of {{ watchlist.paginator.num_pages }}.
+            </span>
+    
+            {% if watchlist.has_next %}
+                <a href="?page={{ watchlist.next_page_number }}">next</a>
+                <a href="?page={{ watchlist.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 {% else %}
     <h2 id="title">Your Watchlist is empty</h2>
 {% endif %}
-
-<div class="all_listings">
-    {% for listing in watchlist.listing.all %}
-    <div class="listing" id="listing_{{ listing.id }}">
-        <a href="{% url 'show_listing' listing.id listing.name %}">
-            <div class="image_box">
-                <img src="{{ listing.image.url }}" alt="{{ listing.description }}" class="justify-content-center">
-            </div>
-            <div class="nameprice_box">
-                <p class="listing-name">{{ listing.name }}</p>
-                <p class="listing-price">PLN {{ listing.price }}</p>
-                <form action="{% url 'remove_from_watchlist' listing.id %}" method="post"
-                    class="remove_from_watchlist" name="remove_from_watchlist">
-                    {% csrf_token %}
-                    <input type="hidden" value="{{ listing.id }}" name="listing_id" class="listing_id">
-                    <input type="submit" value="Remove" class="my_buttons">
-                </form>
-            </div>
-        </a>
-    </div>
-    {% endfor %}
-</div>
-<!-- Pagination -->
-<div class="pagination">
-    <span class="step-links">
-        {% if watchlist.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-        {% endif %}
-
-        <span class="current">
-            Page {{ watchlist.number }} of {{ watchlist.paginator.num_pages }}.
-        </span>
-
-        {% if watchlist.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
-</div>
-
-
 {% endblock %}
 <!-- Display information about the listing -->
 
