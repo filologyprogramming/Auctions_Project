@@ -10,6 +10,7 @@ from .models import User
 from datetime import datetime
 import json
 from django.core.paginator import Paginator
+from PIL import Image
 
 
 # Shows index page with all listings

@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from datetime import datetime
+from PIL import Image
 
 
 def user_directory_path(instance, filename):
@@ -62,6 +62,20 @@ class Listing(models.Model):
     active = models.BooleanField(default = True)
     sold_to = models.ForeignKey(User, on_delete=models.CASCADE, related_name = 'won_listing', null=True, blank=True)
     sold_for = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+
+    # Function to modify sizes
+    def reduce_sizes(self, image):
+
+        # Define image resolution of different sizes
+        thumbnail_size = 128, 128
+        medium_size = 300, 300
+        large_size = 600, 600
+
+        # Open image
+        im = Image.open(image)
+        im.thumbnail(thumbnail_size)
+        im.save(user_directory_path)
+
 
     def __str__(self):
         return self.name
