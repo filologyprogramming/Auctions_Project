@@ -62,9 +62,8 @@ body > h1 { /* Styles main h1 */
 }
 
 h2 { /* Styles main h2 above the page */
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: block;
+    text-align: center;
     margin-left: 1rem;
     margin-right: 1rem;
     color: #818181;
@@ -122,15 +121,13 @@ h2 { /* Styles main h2 above the page */
 
 .image_box { /* Styles listing image */
     margin: 0;
-    width: 10rem;
-    height: 10rem;
+    width: auto;
+    height: auto;
 }
 
 img { /* Styles listing image */
-    width: 10rem;
-    height: 10rem;
-    box-sizing: border-box;
-    object-fit: cover;
+    width: auto;
+    height: auto;
     margin: 0;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
@@ -138,7 +135,7 @@ img { /* Styles listing image */
 
 .nameprice_box { /* Stylizes small descriptions under small images */
     background-color: #818181;
-    width: 10rem;
+    width: auto;
     box-sizing: border-box;
     border-left: 1px solid #818181;
     border-right: 1px solid #818181;
@@ -482,13 +479,13 @@ footer > p {
     }
     
     .image_box { /* Styles listing image */
-        width: 15rem;
-        height: 15rem;
+        width: auto;
+        height: auto;
     }
     
     img { /* Styles listing image */
-        width: 15rem;
-        height: 15rem;
+        width: 100%;
+        height: auto;
         border-top-left-radius: 1rem;
         border-top-right-radius: 0;
         border-bottom-left-radius: 1rem;

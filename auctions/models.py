@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from PIL import Image
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
 
 
 def user_directory_path(instance, filename):
@@ -58,6 +59,18 @@ class Listing(models.Model):
         choices=CATEGORIES_CHOICES,
     )
     image = models.ImageField(upload_to=user_directory_path)
+    image_thumbnail = ImageSpecField(source='image',
+                                      processors=[ResizeToFill(200, 200)],
+                                      format='JPEG',
+                                      options={'quality': 50})
+    image_medium = ImageSpecField(source='image',
+                                      processors=[ResizeToFill(400, 400)],
+                                      format='JPEG',
+                                      options={'quality': 90})
+    image_large = ImageSpecField(source='image',
+                                      processors=[ResizeToFill(1000, 1000)],
+                                      format='JPEG',
+                                      options={'quality': 90})
     seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name = 'listings')
     active = models.BooleanField(default = True)
     sold_to = models.ForeignKey(User, on_delete=models.CASCADE, related_name = 'won_listing', null=True, blank=True)

@@ -8,7 +8,13 @@
         <div class="listing">
             <a href="{% url 'show_listing' listing.id listing.name %}">
                 <div class="image_box">
-                    <img src="{{ listing.image.url }}" alt="{{ listing.description }}" class="justify-content-center">
+                    <img src="{{ listing.image.url }}" 
+                        srcset="{{ listing.image_thumbnail.url }} 480w, 
+                                {{ listing.image_medium.url }} 800w,
+                                {{ listing.image.large.url }} 1200w"
+                        sizes="(max-width: 480px) 480px, (max-width: 800px) 800px, 1200px"
+                        alt="{{ listing.description }}" 
+                        class="justify-content-center" />
                 </div>
                 <div class="nameprice_box">
                     <p class="listing_name">{{ listing.name }}</p>
@@ -18,28 +24,26 @@
         </div>
 
                         <!-- <p id="listing-category">{{ listing.get_category_display }}</p> -->
-
-
-                        
-                        {% endif %}
-                        {% endfor %}
-                    </div>
-                    <!-- Pagination -->
-                    <div class="pagination">
-                        <span class="step-links">
-                            {% if page_obj.has_previous %}
-                                <a href="?page=1">&laquo; first</a>
-                                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-                            {% endif %}
-                    
-                            <span class="current">
-                                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                            </span>
-                    
-                            {% if page_obj.has_next %}
-                                <a href="?page={{ page_obj.next_page_number }}">next</a>
-                                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-                            {% endif %}
-                        </span>
-                    </div>
+        {% endif %}
+        {% endfor %}
+        </div>
+        
+        <!-- Pagination -->
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+        
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+        
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
 {% endblock %}
