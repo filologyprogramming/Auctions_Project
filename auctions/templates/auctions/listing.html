@@ -5,7 +5,13 @@
     
     
     <!-- Listing -->
-    <img src="{{ listing.image.url }}" alt="{{ listing.description }}" class="listing_image">
+    <img src="{{ listing.image.url }}" 
+                        srcset="{{ listing.image_thumbnail.url }} 200w, 
+                                {{ listing.image_medium.url }} 350w,
+                                {{ listing.image.url }} 500w"
+                        sizes="(max-width: 480px) 100vw, (max-width: 800px) 50vw"
+                        alt="{{ listing.description }}" 
+                        class="justify-content-center listing_image" />
     <p class="listing_name_big">{{ listing.name }}</p>
     <div class="main_info">
         <p class="listing_seller_big">Posted by: {{ listing.seller }}</p>
