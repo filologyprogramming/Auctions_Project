@@ -10,7 +10,7 @@ html, body { /* Main body settings */
 }
 
 body {
-    background-color: #F2F2F2;
+    background-color: #C5C5C5;
 }
 
 body > h1 { /* Styles main h1 */
@@ -33,7 +33,7 @@ body > h1 { /* Styles main h1 */
 
 /* Navbar */
 .navbar { /* Styles navbar app-wide*/
-    background-color: #F2F2F2;
+    background-color: #C5C5C5;
     opacity: 90%;
     position: sticky;
     width: 100%;
@@ -66,7 +66,7 @@ h2 { /* Styles main h2 above the page */
     text-align: center;
     margin-left: 1rem;
     margin-right: 1rem;
-    color: #818181;
+    color: #0d0d0d;
     border-radius: 1rem;
 }
 
@@ -108,15 +108,14 @@ h2 { /* Styles main h2 above the page */
 /* Listing card */
 .all_listings {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column;
     justify-content: space-around;
     text-align: center;
     padding: 0;
 }
 .listing { /* Stylizes a small listing card */
-    width: auto;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    width: 90vw;
+    margin: 1rem;
 }
 
 .image_box { /* Styles listing image */
@@ -126,8 +125,9 @@ h2 { /* Styles main h2 above the page */
 }
 
 img { /* Styles listing image */
-    width: auto;
-    height: auto;
+    width: 90vw;
+    height: 90vw;
+    object-fit: cover;
     margin: 0;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
