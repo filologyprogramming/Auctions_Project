@@ -9,7 +9,13 @@
             <div class="listing" id="listing_{{ listing.id }}">
                 <a href="{% url 'show_listing' listing.id listing.name %}">
                     <div class="image_box">
-                        <img src="{{ listing.image.url }}" alt="{{ listing.description }}" class="justify-content-center">
+                        <img src="{{ listing.image.url }}" 
+                        srcset="{{ listing.image_thumbnail.url }} 200w, 
+                                {{ listing.image_medium.url }} 350w,
+                                {{ listing.image.url }} 500w"
+                        sizes="(max-width: 480px) 90vw, (max-width: 800px) 50vw"
+                        alt="{{ listing.description }}" 
+                        class="justify-content-center" />
                     </div>
                     <div class="nameprice_box">
                         <p class="listing-name">{{ listing.name }}</p>
@@ -18,7 +24,7 @@
                             class="remove_from_watchlist" name="remove_from_watchlist">
                             {% csrf_token %}
                             <input type="hidden" value="{{ listing.id }}" name="listing_id" class="listing_id">
-                            <input type="submit" value="Remove" class="my_buttons">
+                            <input type="submit" value="Remove from watchlist" class="my_buttons">
                         </form>
                     </div>
                 </a>
