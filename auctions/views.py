@@ -10,7 +10,6 @@ from .models import User
 from datetime import datetime
 import json
 from django.core.paginator import Paginator
-from PIL import Image
 
 
 # Shows index page with all listings
@@ -20,7 +19,8 @@ def index(request):
         return render(request, "auctions/error.html")
     
     # Create paginator
-    paginator = Paginator(listings, 4)
+    paginator = Paginator(listings, 10)
+    print(listings)
     # Get page number
     page_number = request.GET.get("page")
     # Create page object
