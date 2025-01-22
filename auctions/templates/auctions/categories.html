@@ -1,9 +1,12 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
+
+    <h2>Categories</h2>
+
     <form action ="{% url 'categories' %}" method="get" name="categories" id="categories_form">
         <select class="my_buttons" id="selected_category">
-            <option class="my_buttons" selected="true" disabled="disabled">Choose a category</option>  
+            <option class="my_buttons" selected="true" disabled="disabled">Category</option>  
             {% for category in all_categories %}
             <option class="my_buttons" value="{{ category.0 }}">{{ category.1 }}</option>
             {% endfor %}
