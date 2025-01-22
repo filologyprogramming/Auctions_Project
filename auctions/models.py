@@ -62,15 +62,15 @@ class Listing(models.Model):
     image_thumbnail = ImageSpecField(source='image',
                                       processors=[ResizeToFill(200, 200)],
                                       format='JPEG',
-                                      options={'quality': 100})
+                                      options={'quality': 60})
     image_medium = ImageSpecField(source='image',
                                       processors=[ResizeToFill(350, 350)],
                                       format='JPEG',
-                                      options={'quality': 100})
+                                      options={'quality': 60})
     image_large = ImageSpecField(source='image',
                                       processors=[ResizeToFill(500, 500)],
                                       format='JPEG',
-                                      options={'quality': 100})
+                                      options={'quality': 60})
     seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name = 'listings')
     active = models.BooleanField(default = True)
     sold_to = models.ForeignKey(User, on_delete=models.CASCADE, related_name = 'won_listing', null=True, blank=True)
