@@ -273,9 +273,14 @@ document.addEventListener("DOMContentLoaded", function() {
                         image_box.appendChild(image);
                         let image_url = data.listings[i].image;
                         let image_description = data.listings[i].description;
+
                         // Add the source to the picture
                         image.setAttribute('src', `${image_url}`);
+                        image.setAttribute('srcset', `"{{ listing.image_thumbnail.url }} 200w, 
+                                                    {{ listing.image_medium.url }} 350w,
+                                                    {{ listing.image_large.url }} 500w"`);
                         image.setAttribute('alt', `${image_description}`);
+                        image.setAttribute('sizes', "(max-width: 480px) 100vw, (max-width: 800px) 50vw")
                         
                         // Create tags for paragraphs
                         name_paragraph = document.createElement("p");
