@@ -20,7 +20,6 @@ def index(request):
     
     # Create paginator
     paginator = Paginator(listings, 10)
-    print(listings)
     # Get page number
     page_number = request.GET.get("page")
     # Create page object
@@ -208,41 +207,36 @@ def categories(request):
         })
     
 def show_listing_categories(request):
-        category = request.GET.get('data')
-        if category is None:
-            error = "Can't retrieve selected category"
-            return render(request, "auctions/error.html", {
-                "error": error,
-                "navbar": True
-            })
+
+    # Get user chosen category
+    category = request.GET.get('data')
+    if category is None:
+        error = "Can't retrieve selected category"
+        return render(request, "auctions/error.html", {
+            "error": error,
+            "navbar": True
+        })
+    else:
+        listings = Listing.objects.filter(active=True).filter(category=category).order_by("-date")
+        if not listings:
+            listings = None
+            return JsonResponse({"listings": listings})
         else:
-            listings = Listing.objects.filter(active=True).filter(category=category).order_by("-date")
-            if not listings:
-                listings = None
-                return JsonResponse({"listings": listings})
-            else:
-                # Get condition of each listing
-                all_conditions = [c for c in Listing.CONDITION_CHOICES]                
-                # print(all_conditions)
-                # Get list of all possible conditions of listings
-                # list_of_abbs = [cond[] for cond in all_categories]
-                
-                final_list = []
-                for key in listings.values():
-                    for condition in all_conditions:
-                        #print(category)
-                        # Amend condition within final list
-                        # Good practice of making copies
-                        if key["condition"] == condition[0]:
-                            final_list.append(key)
-                            key["condition"] = condition[1]
-                            print(final_list)
-                   # print(key)
-                    #print(list_of_abbs)
-                
-                # Convert each instance in the QuerySet into a dictionary
-                # Then convert the entire QuerySet into a list of those dictionaries.
-                return JsonResponse({"listings": final_list})
+            # Get condition of each listing
+            all_conditions = [c for c in Listing.CONDITION_CHOICES] 
+            
+            final_list = []
+            # Convert each instance in the QuerySet into a dictionary
+            for key in listings.values():
+                for condition in all_conditions:
+                    # Amend condition within final list
+                    # Good practice of making copies
+                    if key["condition"] == condition[0]:
+                        # Then convert the entire QuerySet into a list of those dictionaries.
+                        final_list.append(key)
+                        key["condition"] = condition[1]
+            
+            return JsonResponse({"listings": final_list})
 
 @login_required(login_url='login')
 def my_listings(request):
