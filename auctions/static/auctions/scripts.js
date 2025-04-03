@@ -20,8 +20,13 @@ function getCookie(name) {
 // Wait for all content to be loaded
 document.addEventListener("DOMContentLoaded", function() {
     
-// Look for different elements on a page
+    let date = new Date();
+    let year = date.getFullYear();
+    let date_footer = document.getElementById('date_footer');
+    date_footer.innerText = year;
 
+
+// Look for different elements on a page
     // Look for "Add to watchlist form"
     let add_to_watchlist = document.querySelector("#add_to_watchlist_form");
         if (add_to_watchlist){

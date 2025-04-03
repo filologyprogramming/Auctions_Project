@@ -191,7 +191,7 @@ def show_listing(request, listing_id, listing_name):
             "bids": bids,
             "highest_bid": highest_bid,
             "highest_bid_plus_1": highest_bid_plus_1,
-            "navbar": False
+            "navbar": True
         })
 
 

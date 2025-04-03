@@ -1,161 +1,162 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
+
 <div class="wrapper">
-    
-    
     <!-- Listing -->
-    <img src="{{ listing.image.url }}" 
-                        srcset="{{ listing.image_thumbnail.url }} 200w, 
-                                {{ listing.image_medium.url }} 350w,
-                                {{ listing.image_large.url }} 500w"
-                        sizes="(max-width: 480px) 100vw, (max-width: 800px) 50vw"
-                        alt="{{ listing.description }}" 
-                        class="justify-content-center listing_image" />
-    <p class="listing_name_big">{{ listing.name }}</p>
-    <div class="main_info">
-        <p class="listing_seller_big">Posted by: {{ listing.seller }}</p>
-        <p class="listing_description">{{ listing.description }}</p>
+    <div class="listing_name">
+        <h1 class="listing_name_big">{{ listing.name }}</h1>
     </div>
-    <div class="secondary_info">
+    <div class="image">
+        <img src="{{ listing.image.url }}" 
+                srcset="{{ listing.image_thumbnail.url }} 200w, 
+                        {{ listing.image_medium.url }} 350w,
+                        {{ listing.image_large.url }} 500w"
+                sizes="(max-width: 480px) 100vw, (max-width: 800px) 50vw"
+                alt="{{ listing.description }}" 
+                class="justify-content-center listing_image" />
+    </div>
+    <div class="main_info">
+        <p class="listing_seller_big"><strong>Posted by:</strong> {{ listing.seller }}</p>
+        <p class="listing_description"><strong>Description:</strong> {{ listing.description }}</p>
         {% if not bids %}
         <!-- Actual live  -->
-        <p class="listing_price_big">PLN {{ listing.price }}</p>
+        <p class="listing_price_big"><strong>Price:</strong> PLN {{ listing.price }}</p>
         {% else %}
-        <p class="listing_price_big">PLN {{ highest_bid }}</p>
+        <p class="listing_price_big"><strong>Price:</strong> PLN {{ highest_bid }}</p>
         {% endif %}
-        <p class="listing_condition">{{ listing.get_condition_display }}</p>
-        <p class="listing_date">{{ listing.date }}</p>
+        <p class="listing_condition"><strong>Condition: </strong> {{ listing.get_condition_display }}</p>
+        <p class="listing_date"><strong>Added:</strong> {{ listing.date }}</p>
     </div>
-    
-    
     
     <!-- History of bids -->
-    {% if bids %}
-    <div id="tabelka">
-        <table>
-            <caption>
-                <h4 id="table_caption">Highest bids</h4>
-            </caption>
-            <thead>
-                <tr>
-                    <th scope="col">Price</th>
-                    <th scope="col">User</th>
-                </tr>
-            </thead>
-            <tbody>
-                
-                {% for bid in bids %}
-                <tr>
-                    <td>{{bid.bid}}</td>
-                    <td>{{bid.bidder}}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    {% else %}
-    <h4 id="no_bids">No bids on this listing!</h4>
-    {% endif %}
-    
-    
-    
-    <!-- Form and button for placing a bid -->
-    {% if listing.active == False or user == listing.seller %}
-    <div id="empty"></div>
-    <!-- <form inert action ="{% url 'place_a_bid' listing.id %}" method="post", name="place_a_bid_form" id="place_a_bid_form"> -->
+    <div class="bids">
+        {% if not bids %}
+        <h4 id="no_bids">No bids on this listing!</h4>
         {% else %}
-        <form action="{% url 'place_a_bid' listing.id %}" method="post" , name="place_a_bid_form" id="place_a_bid_form">
-            {% csrf_token %}
-            <input type="hidden" value="{{ listing.id }}" name="listing_id">
-            {% if bids %}
-            <input type="number" placeholder="{{ highest_bid_plus_1 }}" id="bid" min="{{ highest_bid_plus_1 }}"
-            max="999999999999" step="0.01" required>
-            <input type="submit" class="my_buttons" value="Place a bid">
-            {% else %}
-            <input type="number" placeholder="{{ listing.price }}" id="bid" min="{{ listing.price }}" max="999999999999"
-            step="0.01" required>
-            <input type="submit" class="my_buttons" value="Place a bid">
-            {% endif %}
-        </form>
+        <div id="tabelka">
+            <table>
+                <caption>
+                    <h4 id="table_caption">Highest bids</h4>
+                </caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Price</th>
+                        <th scope="col">User</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for bid in bids %}
+                    <tr>
+                        <td>{{bid.bid}}</td>
+                        <td>{{bid.bidder}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
         {% endif %}
-    </div>
     
-    <!-- Form to close a listing -->
-    {% if listing.sold_to == None and user == listing.seller %}
-    <h3 id="sold_to_banner">Listing not sold</h3>
-    {% elif listing.active == False %}
-    <h3 id="sold_to_banner">Sold to user {{ listing.sold_to }}</h3>
-    {% else %}
-    <div class="button_container">
-        <div class="button_and_form">
-            {% if listing.active == False %}
-            <form inert action="{% url 'close_listing' listing.id %}" method="post" name="close_listing">
-                {% elif user == listing.seller %}
-                <form action="{% url 'close_listing' listing.id %}" method="post" name="close_listing">
+    
+    
+        <!-- Form and button for placing a bid -->
+        {% if listing.active == False or user == listing.seller %}
+        <div id="empty"></div>
+        <!-- <form inert action ="{% url 'place_a_bid' listing.id %}" method="post", name="place_a_bid_form" id="place_a_bid_form"> -->
+            {% else %}
+            <div>
+                <form action="{% url 'place_a_bid' listing.id %}" method="post" , name="place_a_bid_form" id="place_a_bid_form">
                     {% csrf_token %}
-                    <input type="hidden" value="{{ listing.id }}" name="listing_id" class="my_buttons">
-                    <input type="submit" value="Close Listing" class="my_buttons">
-                </form>
-                {% endif %}
-                
-                <!-- Add to watchlist form -->
-                {% if listing.active == False %}
-                <form inert action="{% url 'add_to_watchlist' listing.id %}" method="post" name="add_to_watchlist_form"
-                id="add_to_watchlist_form">
-                {% else %}
-                <form action="{% url 'add_to_watchlist' listing.id %}" method="post" name="add_to_watchlist_form"
-                id="add_to_watchlist_form">
-                {% csrf_token %}
-                <input type="hidden" value="{{ listing.id }}" name="listing_id" class="listing_id">
-                {% if listing in watchlist.listing.all %}
-                        <input type="submit" value="Remove from watchlist" class="my_buttons" id="add_to_watchlist">
-                        {% else %}
-                        <input type="submit" value="Add to watchlist" class="my_buttons" id="add_to_watchlist">
-                        {% endif %}
-                    </form>
+                    <input type="hidden" value="{{ listing.id }}" name="listing_id">
+                    {% if bids %}
+                    <input type="number" placeholder="{{ highest_bid_plus_1 }}" id="bid" min="{{ highest_bid_plus_1 }}"
+                    max="999999999999" step="0.01" required>
+                    <input type="submit" class="my_buttons" value="Place a bid">
+                    {% else %}
+                    <input type="number" placeholder="{{ listing.price }}" id="bid" min="{{ listing.price }}" max="999999999999"
+                    step="0.01" required>
+                    <input type="submit" class="my_buttons" value="Place a bid">
                     {% endif %}
                 </form>
-            </form>
-        </div>
-    </div>
-    {% endif %}
-    
-    <!-- Comment sections -->
-    <div id="comment_section">
-        <h4 id="comment_heading">Comments</h4>
-        {% if listing.active == False %}
-        <form action="{% url 'add_comment' listing.id %'}" method="post" class="comment_form" name="add_comment_form"
-        id="add_comment_form">
-        {% else %}
-        <form action="{% url 'add_comment' listing.id %'}" method="post" class="comment_form" name="add_comment_form"
-        id="add_comment_form">
-            {% csrf_token %}
-            <input type="hidden" value="{{ listing.id }}" name="listing_id" class="listing_id">
-            {{ comment_form }}
-            <input type="submit" value="Add Comment" class="my_buttons">
-        </form>
-        {% endif %}
-
-        <div>
-            <p id="empty_comment">The comment cannot be empty</p>
-        </div>
-
-        <!-- Single comment -->
-        <div id="all_comments_wrapper">
-            {% for comment in comments %}
-            <div class="one_comment_wrapper">
-                <p class="comment">
-                    {{ comment.comment }}
-                </p>
-                <p class="commenter">
-                    {{ comment.user }}
-                </p>
-                <p class="comment_date">
-                    {{ comment.date }}
-                </p>
             </div>
-            {% endfor %}
+            {% endif %}
+    </div>
+    
+    <div class="all_forms">  
+        <!-- Form to close a listing -->
+        {% if listing.sold_to is None and user == listing.seller %}
+        <h3 id="sold_to_banner">Listing not sold</h3>
+        {% elif not listing.active %}
+        <h3 id="sold_to_banner">Sold to user {{ listing.sold_to }}</h3>
+        {% endif %}
+        
+        <div>
+            {% if listing.active and user == listing.seller %}
+            <div class="button_container">
+                <div class="button_and_form">
+                    <form action="{% url 'close_listing' listing.id %}" method="post" name="close_listing">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{ listing.id }}" name="listing_id">
+                        <input type="submit" value="Close Listing" class="my_buttons">
+                    </form>
+                </div>
+            </div>
         </div>
+        {% endif %}        
+    </div>
+
+    <!-- Add to watchlist form -->
+    {% if listing.active and user != listing.seller %}
+    <form action="{% url 'add_to_watchlist' listing.id %}" method="post" name="add_to_watchlist_form" id="add_to_watchlist_form">
+        {% csrf_token %}
+        <input type="hidden" value="{{ listing.id }}" name="listing_id">
+        {% if listing in watchlist.listing.all %}
+        <input type="submit" value="Remove from watchlist" class="my_buttons" id="add_to_watchlist">
+        {% else %}
+        <input type="submit" value="Add to watchlist" class="my_buttons" id="add_to_watchlist">
+        {% endif %}
+    </form>
+    {% endif %}
+</div>
+</div>
+
+<!-- Comment sections -->
+<div id="comment_section">
+    <h4 id="comment_heading">Comments</h4>
+    {% if listing.active == False %}
+    <form action="{% url 'add_comment' listing.id %'}" method="post" class="comment_form" name="add_comment_form"
+    id="add_comment_form">
+    </form>
+    {% else %}
+    <form action="{% url 'add_comment' listing.id %'}" method="post" class="comment_form" name="add_comment_form"
+    id="add_comment_form">
+        {% csrf_token %}
+        <input type="hidden" value="{{ listing.id }}" name="listing_id">
+        {{ comment_form }}
+        <input type="submit" value="Add Comment" class="my_buttons" id="add_comment">
+    </form>
+    {% endif %}
+
+    <div>
+        <p id="empty_comment">The comment cannot be empty</p>
+    </div>
+
+    <!-- All comments -->
+    <div id="all_comments_wrapper">
+        {% for comment in comments %}
+        <div class="one_comment_wrapper">
+            <p class="comment">
+                {{ comment.comment }}
+            </p>
+            <p class="commenter">
+                {{ comment.user }}
+            </p>
+            <p class="comment_date">
+                {{ comment.date }}
+            </p>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}
