@@ -276,12 +276,16 @@ thead {
     text-align: center;
     color:#0d0d0d;
     background-color: #818181 !important;
+    border: 1px solid #0d0d0d;
+}
+
+th {
+    border-left: 1px solid #0d0d0d;
 }
 
 td {
-    border: 1px solid;
+    border: 1px solid #0d0d0d;
     width: 50%;
-
     color: #818181;
 }
 
@@ -544,7 +548,9 @@ footer > p {
         flex-wrap: wrap;
     }
     .listing {
-        width: 30vw;
+        width: 33vw;
+        margin-left: 1rem;
+        margin-right: 1rem;
     }
 
     /* Single listing style */
@@ -650,5 +656,15 @@ footer > p {
     }
     #add_comment {
         margin-left: 3rem;
+    }
+}
+
+@media (min-width: 1980px) {
+    html, body {
+        max-width: 1980px;
+        margin: 0 auto; 
+    }
+    .listing{
+        width: 25vw;
     }
 }
